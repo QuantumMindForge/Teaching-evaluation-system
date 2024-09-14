@@ -1,0 +1,88 @@
+<!doctype html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>修改密码页面</title>
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap3/css/bootstrap.min.css' %}"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <style>
+        .content-box {
+            background-color: white;
+            -moz-box-shadow: 4px 4px 10px #909090;
+            -webkit-box-shadow: 4px 4px 10px #909090;
+            box-shadow: 4px 4px 10px #909090;
+            opacity: 0.95;
+            padding: 30px;
+            border-radius: 20px;
+            width: 200%;
+            max-width: 500px;
+            margin: 0 auto;
+            margin-top: 150px;
+        }
+
+        .column {
+            margin-right: -14%;
+        }
+
+        .btn-primary:hover, .btn-default:hover {
+            background: linear-gradient(45deg, #ffffff, #808080);
+            color: white;
+        }
+        .gradient-btn {
+            background: linear-gradient(to right, #007bff, #1a237e); /* 蓝色渐变效果 */
+            border: none;
+            color: white;
+            margin-bottom: 15px;
+            margin-top: 15px;
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body background="{% static 'img/img.jpg' %}" style="background-repeat:no-repeat; background-size:100% 100%; background-attachment: fixed;">
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column" style="margin-top: 40px; align-content: center">
+                <div class="row clearfix">
+                    <div class="col-md-4 column"></div>
+                    <div class="col-md-4 column">
+                        <div class="content-box">
+                            <div style="text-align: center; margin-bottom: 50px"><h2>修改密码</h2></div>
+                            <form class="form-sigin" action="{% url 'teacher_pswd_update' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div style="color: red; font-size: 10pt;">{{ msg }}</div>
+                                <label for="">用户名</label>
+                                <input type="text" class="form-control" name="student_id" id="inputEmail3" disabled="disabled"
+                                       value="{{ request.session.teacher_id }}" placeholder="学号">
+                                <label style="margin-top: 25px">原密码</label>
+                                <input type="password" name="pswd" class="form-control" id="inputPassword3" placeholder="密码">
+                                <label style="margin-top: 25px">新密码</label>
+                                <input type="password" name="pswd_1" class="form-control" id="inputPassword3" placeholder="密码">
+                                <label style="margin-top: 25px">确认密码</label>
+                                <input type="password" name="pswd_2" class="form-control" id="inputPassword3" placeholder="密码">
+                                <div class="checkbox" style="margin-top: 15px">
+                                    <label><input type="checkbox" name="remember"> 记住我</label>
+                                </div>
+                                <input type="submit" class="btn btn-primary form-control gradient-btn" value="确定">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"
+            integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+            crossorigin="anonymous"></script>
+    <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"
+            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+            crossorigin="anonymous"></script>
+</body>
+</html>
