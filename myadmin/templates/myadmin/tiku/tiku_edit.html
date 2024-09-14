@@ -1,0 +1,75 @@
+{% extends 'myadmin/base.html' %}
+
+{% block myadmin_base %}
+<h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">编辑评价题信息</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div style="color: red;font-size: 15pt">{{ msg }}</div>
+            <form class="form-horizontal" method="post" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">ID</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="id" value="{{ tiku.id }}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">评价题</label>
+                    <div class="col-sm-10">
+                        <textarea name="timu" class="form-control" rows="3">{{ tiku.timu }}</textarea>
+                    </div>
+                </div>
+
+                <!-- 使用 if 来区分选项，并避免拼接 -->
+                {% for option in 'a'|add:'b'|add:'c'|add:'d' %}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选项{{ option|upper }}</label>
+                        <div class="col-sm-7">
+                            {% if option == 'a' %}
+                                <input type="text" class="form-control" name="option_a" value="{{ option_a }}" placeholder="输入选项A">
+                            {% elif option == 'b' %}
+                                <input type="text" class="form-control" name="option_b" value="{{ option_b }}" placeholder="输入选项B">
+                            {% elif option == 'c' %}
+                                <input type="text" class="form-control" name="option_c" value="{{ option_c }}" placeholder="输入选项C">
+                            {% elif option == 'd' %}
+                                <input type="text" class="form-control" name="option_d" value="{{ option_d }}" placeholder="输入选项D">
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-3">
+                            {% if option == 'a' %}
+                                <input type="number" class="form-control" name="score_a" value="{{ score_a }}" placeholder="分数">
+                            {% elif option == 'b' %}
+                                <input type="number" class="form-control" name="score_b" value="{{ score_b }}" placeholder="分数">
+                            {% elif option == 'c' %}
+                                <input type="number" class="form-control" name="score_c" value="{{ score_c }}" placeholder="分数">
+                            {% elif option == 'd' %}
+                                <input type="number" class="form-control" name="score_d" value="{{ score_d }}" placeholder="分数">
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">是否活跃</label>
+                    <div class="col-sm-2">
+                        <select name="is_active" id="id_sex" class="form-control">
+                            <option value="True" {% if tiku.is_active == True %}selected=""{% endif %}>是</option>
+
+                            <option value="False" {% if tiku.is_active == False %}selected=""{% endif %}>否</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

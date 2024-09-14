@@ -1,0 +1,63 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_class %} active {% endblock %}
+{% block myadmin_base %}
+    <div class="row">
+        <h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">添加课程</h2>
+
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <div style="color: red;font-size: 15pt">{{ msg }}</div>
+        </div>
+        <div class="col-lg-6">
+
+            <form class="form-horizontal" method="post" action="/myadmin/kecheng_add/">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">ID</label>
+                    <div class="col-sm-10">
+                        <select name="id" id="id_sex" class="form-control">
+                            <option value="{{ id }}" selected="">{{ id }}</option>
+
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">课程名</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" required="required" name="kecheng">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">学生</label>
+                    <div class="col-sm-10">
+                        <select name="student_id" class="form-control">
+                            {% for i in students %}
+                                <option value="{{ i.student_id }}" selected="">{{ i.student_id }}-{{ i.name }}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">教师</label>
+                    <div class="col-sm-10">
+                        <select name="teacher_id" class="form-control">
+                            {% for i in teachers %}
+                                <option value="{{ i.teacher_id }}" selected="">{{ i.teacher_id }}-{{ i.name }}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

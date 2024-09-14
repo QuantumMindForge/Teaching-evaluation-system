@@ -1,0 +1,38 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_collapse %} in {% endblock %}
+{% block myadmin_pingjia_not %} active {% endblock %}
+
+{% block myadmin_base %}
+
+    <h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">未评价学生名单</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+            <th>#</th>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>班级</th>
+            <th>手机号</th>
+            <th>邮箱</th>
+            <th>未评价课数</th>
+
+            </thead>
+            <tbody>
+
+            {% for row in data_list %}
+                <tr>
+                <td>{{ forloop.counter }}</td>
+                    {% for cell in row %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+    </div>
+
+
+{% endblock %}

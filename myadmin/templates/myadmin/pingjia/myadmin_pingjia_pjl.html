@@ -1,0 +1,43 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_collapse %} in {% endblock %}
+{% block myadmin_pingjia_pjl %} active {% endblock %}
+
+{% block myadmin_base %}
+
+
+    <h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">班级评价率</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th>#</th>
+                <th>班级</th>
+                <th>学生数</th>
+                <th>已评价</th>
+                <th>未评价</th>
+                <th>评价率</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for row in data_list %}
+                <tr>
+                <td>{{ forloop.counter }}</td>
+                    {% for cell in row %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+
+{% endblock %}

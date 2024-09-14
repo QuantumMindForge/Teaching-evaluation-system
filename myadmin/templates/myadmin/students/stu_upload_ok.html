@@ -1,0 +1,79 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_stu %} active {% endblock %}
+{% block myadmin_base %}
+
+    <div class="row">
+        <h1 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #b73333;">确认添加学生表吗？</h1>
+        <div style="padding: 15px 15px 15px 15px">
+
+            <div class="alert alert-success " role="alert">
+
+                {% if a == 0 %}
+                    <br>
+
+                    <div class="container">
+                        <b style="color: red">{{ msg }}</b>
+                        <div style="margin-top: 30px">
+
+                            <a class="btn btn-primary " href="{% url 'myadmin_stu_toupload' %}">确认提交</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="container">
+                        <b style="color: red">{{ msg }}</b>
+                        <div style="margin-top: 30px">
+
+                            <a class="btn btn-primary " href="{% url 'myadmin_stu_upload' %}">返回重新提交</a>
+                        </div>
+                    </div>
+
+                {% endif %}
+            </div>
+
+            <h4 class="page-header ">上传学生信息</h4>
+            <div class="col-lg-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>学院</th>
+                        <th>班级</th>
+                        <th>性别</th>
+                        <th>手机号</th>
+                        <th>邮箱</th>
+                        <th>密码</th>
+                        <th>是否可以添加</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in excel_data %}
+                        <tr>
+
+                            {% for cell in row %}
+                                {{ row.extend }}
+                                {% if cell == 'ok' %}
+                                    <td><span style="color: darkgreen" class="glyphicon glyphicon-ok"></span></td>
+                                {% elif cell == 'no' %}
+                                    <td><span style="color: red" class="glyphicon glyphicon-remove"></span></td>
+                                {% else %}
+                                    <td>{{ cell }}</td>
+                                {% endif %}
+
+
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

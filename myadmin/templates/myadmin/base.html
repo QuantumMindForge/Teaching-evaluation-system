@@ -1,0 +1,186 @@
+<!doctype html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
+    <title>后台管理</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'bootstrap3/css/bootstrap.min.css' %}"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            color: #333;
+            padding-top: 50px; /* Offset for fixed navbar */
+        }
+
+        .navbar-inverse {
+            background-color: rgba(0, 0, 0, 0.85);
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand {
+            display: inline-flex;
+            align-items: center;
+            padding-top: 0;
+            padding-bottom: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: #fff;
+        }
+
+        .navbar-brand img {
+            vertical-align: middle;
+            margin-right: 10px;
+            border-radius: 50%; /* 圆形图标 */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.15);
+        }
+
+        .footer {
+            background-color: #333;
+            color: #ccc;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 50px;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            width: 220px;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-right: 1px solid #ddd;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar .list-group-item {
+            background-color: transparent;
+            border: none;
+            color: #ddd;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 1.1em;
+            padding: 12px 15px;
+        }
+
+        .sidebar .list-group-item:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .main {
+            margin: 0px 0px 40px 240px; /* Space for sidebar */
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .main:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-menu {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .dropdown-menu > li > a {
+            color: #ddd;
+        }
+
+        .dropdown-menu > li > a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img alt="Brand" width="45px" height="45px" src="{% static 'img/logo.jpg' %}">
+                教师教学质量评价系统
+            </a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 20px">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">管理员：{{ request.session.name }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'myadmin_pswd_update' %}">修改密码</a></li>
+                        <li><a href="/logout/">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="sidebar">
+    <div class="list-group">
+        <a class="list-group-item glyphicon glyphicon-home" href="/myadmin/"><b>  首页</b></a>
+        <a class="list-group-item glyphicon glyphicon-user" href="/myadmin/stu/1" target="leftnav">  学生管理</a>
+        <a class="list-group-item glyphicon glyphicon-briefcase" href="/myadmin/teachers/1" target="leftnav">  教师管理</a>
+        <a class="list-group-item glyphicon glyphicon-book" href="/myadmin/kecheng/1" target="leftnav">  课程管理</a>
+        <a class="list-group-item glyphicon glyphicon-text-background" href="/myadmin/tiku/" target="leftnav">  评价题目</a>
+        <a class="list-group-item glyphicon glyphicon-stats" data-toggle="collapse" data-parent="#accordion" href="#collapseOne2">  评价成绩</a>
+        <div id="collapseOne2" class="panel-collapse collapse">
+            <a class="list-group-item glyphicon glyphicon-menu-right" href="{% url 'myadmin_pingjia' %}"> 评价成绩</a>
+            <a class="list-group-item glyphicon glyphicon-menu-right" href="{% url 'myadmin_pingjia_pjl' %}"> 班级评价率</a>
+            <a class="list-group-item glyphicon glyphicon-menu-right" href="{% url 'myadmin_pingjia_not' %}"> 未评价</a>
+        </div>
+        <a class="list-group-item glyphicon glyphicon-cog" href="{% url 'myadmin_admin' %}" target="leftnav">  管理员</a>
+    </div>
+</div>
+
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-md-12">
+            {% block myadmin_base %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<footer class="footer navbar-fixed-bottom">
+    <div class="container">
+        <h5 class="text-muted">教师教学质量评价系统的设计与实现</h5>
+    </div>
+</footer>
+
+<script src="{% static 'js/jquery.min.js' %}" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<script src="{% static 'bootstrap3/js/bootstrap.min.js' %}" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</body>
+</html>
+

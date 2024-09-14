@@ -1,0 +1,81 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_class %} active {% endblock %}
+{% block myadmin_base %}
+    <h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">编辑课程信息</h2>
+
+
+
+
+    <div class="col-sm-offset-2 col-sm-10">
+        <div style="color: red;font-size: 15pt">{{ msg }}</div>
+    </div>
+    <div class="col-lg-6">
+
+        <form class="form-horizontal" method="post" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">ID</label>
+                <div class="col-sm-10">
+                    <select name="id" id="id_sex" class="form-control">
+                        <option value="{{ id }}" selected="">{{ stu.id }}</option>
+
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">课程名</label>
+                <div class="col-sm-10">
+                    <input class="form-control" required="required" name="kecheng" value="{{ stu.kecheng }}">
+                </div>
+            </div>
+            <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">学生</label>
+    <div class="col-sm-10">
+        <select name="student_id" class="form-control">
+            {% for i in students %}
+                <option value="{{ i.student_id }}"
+                        {% if i.student_id == stu.student_id.student_id %}selected{% endif %}>
+                    {{ i.student_id }}-{{ i.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">老师</label>
+    <div class="col-sm-10">
+        <select name="teacher_id" class="form-control">
+            {% for i in teachers %}
+                <option value="{{ i.teacher_id }}"
+                        {% if i.teacher_id == stu.teacher_id.teacher_id %}selected{% endif %}>
+                    {{ i.teacher_id }}-{{ i.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">是否活跃</label>
+                <div class="col-sm-2">
+                    <select name="is_active" id="id_sex" class="form-control">
+                        <option value="True" {% if stu.is_active == True %}selected=""{% endif %}>是</option>
+
+                        <option value="False" {% if stu.is_active == False %}selected=""{% endif %}>否</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

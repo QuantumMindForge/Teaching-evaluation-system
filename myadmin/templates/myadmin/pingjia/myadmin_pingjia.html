@@ -1,0 +1,57 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_collapse %} in {% endblock %}
+{% block myadmin_pingjia %} active {% endblock %}
+
+{% block myadmin_base %}
+    <h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">教师评价成绩</h2>
+
+    <div class="row my-3">
+        <div class="col-lg-8">
+            <!-- 如果需要其他按钮或功能，可以在这里添加 -->
+        </div>
+
+        <div class="col-lg-4">
+            <form action="#" method="get"> <!-- 如果有搜索功能，可启用 -->
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="搜索教工号或姓名">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+        </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th>#</th>
+                <th>教工号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>手机号</th>
+                <th>学生评价率</th>
+                <th>平均得分</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td> <!-- 序号 -->
+                    {% for cell in row %}
+                        <td>{{ cell }}</td> <!-- 显示每一行的每个字段 -->
+                    {% endfor %}
+                    <td>
+                        <!-- 操作按钮，查看详情 -->
+                        <a class="btn-sm btn-primary" href="{% url 'myadmin_pingjia_show' %}?teacher_id={{ row | first }}">查看</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_teachers %} active {% endblock %}
+{% block myadmin_base %}
+
+    <h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">教师管理</h2>
+
+    <div class="row my-3">
+        <div class="col-lg-8">
+            <div>
+                <a href="/myadmin/teachers_add/" class="btn btn-primary btn-sm">添加教师</a>
+                <a href="/myadmin/teachers_upload/" class="btn btn-primary btn-sm">上传表格</a>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <form action="/myadmin/teachers/1" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="搜索教工号或姓名">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+        </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>#</th>
+                    <th>教工号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>手机号</th>
+                    <th>邮箱</th>
+                    <th>活跃状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in stulist %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.teacher_id }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>{% if i.sex == 'male' %}
+                        男
+                    {% elif i.sex == 'female' %}
+                        女
+                    {% endif %}
+                    </td>
+                    <td>{{ i.phone }}</td>
+                    <td>{{ i.email }}</td>
+                    <td>{{ i.is_active|yesno:"是,否" }}</td>
+                    <td>
+                        <a href="/myadmin/teachers_edit/{{ i.teacher_id }}" class="btn btn-info btn-xs">编辑</a>
+                        <a onclick="return confirm('确定删除吗？');" href="{% url 'myadmin_teachers_del' i.teacher_id %}" class="btn btn-danger btn-xs">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-end">
+                <li class="page-item {{ pIndex|add:-1|yesno:'disabled,' }}">
+                    <a class="page-link" href="/myadmin/teachers/{{ pIndex|add:-1 }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% for i in plist %}
+                <li {% if i == pIndex %} class="active" {% endif %}><a href="/myadmin/teachers/{{ i }}">{{ i }}</a></li>
+                {% endfor %}
+                <li class="page-item {{ pIndex|add:1|yesno:',disabled' }}">
+                    <a class="page-link" href="/myadmin/teachers/{{ pIndex|add:1 }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+{% endblock %}

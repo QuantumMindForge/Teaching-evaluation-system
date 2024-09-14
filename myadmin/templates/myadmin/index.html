@@ -1,0 +1,162 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_index %} active {% endblock %}
+{% block myadmin_base %}
+    {% load static %}
+    <script src="{% static 'echarts/echarts.js' %}"></script>
+    <br>
+    <div class="row">
+
+        <a class="col-sm-6 col-md-4" href="/myadmin/stu/1">
+            <div class="thumbnail" style="background-color: #28a745; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-9 col-xs-9">
+                            <h3 class="glyphicon glyphicon-user text-light">&nbsp;学生数量</h3>
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <h3 class="text-right text-light">{{ students }}</h3>
+                        </div>
+                    </div>
+                    <p style="height: 20px"></p>
+                </div>
+            </div>
+        </a>
+        <a class="col-sm-6 col-md-4" href="/myadmin/teachers/1">
+            <div class="thumbnail" style="background-color: #ffc107; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-9 col-xs-9">
+                            <h3 class="glyphicon glyphicon-lock text-light">&nbsp;教师数量</h3>
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <h3 class="text-right text-light">{{ teachers }}</h3>
+                        </div>
+                    </div>
+                    <p style="height: 20px"></p>
+                </div>
+            </div>
+        </a>
+        <a class="col-sm-6 col-md-4" href="/myadmin/kecheng/1">
+            <div class="thumbnail" style="background-color: #6f42c1; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-9 col-xs-9">
+                            <h3 class="glyphicon glyphicon-book text-light">&nbsp;课程数量</h3>
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <h3 class="text-right text-light">{{ kecheng }}</h3>
+                        </div>
+                    </div>
+                    <p style="height: 20px"></p>
+                </div>
+            </div>
+        </a>
+        <a class="col-sm-6 col-md-4" href="/myadmin/tiku/">
+            <div class="thumbnail" style="background-color: #dc3545; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-9 col-xs-9">
+                            <h3 class="glyphicon glyphicon-font text-light">&nbsp;评价题数量</h3>
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <h3 class="text-right text-light">{{ tiku }}</h3>
+                        </div>
+                    </div>
+                    <p style="height: 20px"></p>
+                </div>
+            </div>
+        </a>
+        <a class="col-sm-6 col-md-4" href="/myadmin/pingjia/">
+            <div class="thumbnail" style="background-color: #17a2b8; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-9 col-xs-9">
+                            <h3 class="glyphicon glyphicon-check text-light">&nbsp;评价数量</h3>
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <h3 class="text-right text-light">{{ pingjia }}</h3>
+                        </div>
+                    </div>
+                    <p style="height: 20px"></p>
+                </div>
+            </div>
+        </a>
+        <a class="col-sm-6 col-md-4" href="/myadmin/admin/">
+            <div class="thumbnail" style="background-color: #5a6066; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-9 col-xs-9">
+                            <h3 class="glyphicon glyphicon-cog text-light">&emsp;管理员</h3>
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <h3 class="text-right text-light">{{ admin }}</h3>
+                        </div>
+                    </div>
+                    <p style="height: 20px"></p>
+                </div>
+            </div>
+        </a>
+        <div class="col-md-12">
+            <hr>
+            <h3>站内数据信息</h3>
+        </div>
+        <div class="col-sm-6 col-md-4" style="height: 230px;">
+            <div style="border: black solid 1px; border-radius: 15px; height: 230px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" id="root">
+            </div>
+        </div>
+    </div>
+
+    <!-- ECharts Script -->
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('root'));
+
+        var option = {
+            title: {
+                text: '数据数量柱状图',
+                textStyle: {
+                    color: '#333',
+                    fontFamily: 'Roboto',
+                    fontWeight: 'bold',
+                },
+            },
+            tooltip: {},
+            legend: {
+                data:['数量'],
+                textStyle: {
+                    color: '#333'
+                }
+            },
+            xAxis: {
+                type: 'category',
+                data:['学生', '教师', '课程', '题', '评价', '管理员'],
+                axisLine: {
+                    lineStyle: {
+                        color: '#333'
+                    }
+                }
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color: '#333'
+                    }
+                }
+            },
+            series: [{
+                name: '数量',
+                type: 'bar',
+                data:[{{ students }}, {{ teachers }}, {{ kecheng }}, {{ tiku }}, {{ pingjia }}, {{ admin }}],
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'rgba(180, 180, 180, 0.2)'
+                },
+                itemStyle: {
+                    color: '#6f42c1',
+                }
+            }]
+        };
+
+        myChart.setOption(option);
+    </script>
+{% endblock %}

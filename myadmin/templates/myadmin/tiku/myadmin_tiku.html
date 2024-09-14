@@ -1,0 +1,50 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_tiku %} active {% endblock %}
+{% block myadmin_base %}
+
+<h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">评价题管理</h2>
+
+<div class="row my-3">
+    <div class="col-lg-8">
+        <div>
+            <a href="/myadmin/tiku_add/" class="btn btn-primary btn-sm">添加评价题</a>
+        </div>
+    </div>
+</div><!-- /.row -->
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>评价问题</th>
+            <th>选项A</th>
+            <th>选项B</th>
+            <th>选项C</th>
+            <th>选项D</th>
+            <th>是否活跃</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in tiku_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.timu }}</td>
+                <td>{{ i.option_a }} ({{ i.score_a }})</td>
+                <td>{{ i.option_b }} ({{ i.score_b }})</td>
+                <td>{{ i.option_c }} ({{ i.score_c }})</td>
+                <td>{{ i.option_d }} ({{ i.score_d }})</td>
+                <td>{{ i.is_active|yesno:"是,否" }}</td>
+                <td>
+                    <a href="/myadmin/tiku_edit/{{ i.id }}" class="btn btn-info btn-xs">编辑</a>
+                    <a onclick="return confirm('确定删除吗？');" href="{% url 'myadmin_tiku_del' i.id %}" class="btn btn-danger btn-xs">删除</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+

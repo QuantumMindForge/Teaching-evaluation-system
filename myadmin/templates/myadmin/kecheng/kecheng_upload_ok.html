@@ -1,0 +1,77 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_class %} active {% endblock %}
+{% block myadmin_base %}
+
+
+
+    <h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #b73333;">确认添加该课程表吗？</h2>
+
+    <div class="alert alert-success " role="alert">
+
+        {% if a == 0 %}
+            <br>
+
+            <div class="container">
+                <b style="color: red">{{ msg }}</b>
+                <div style="margin-top: 30px">
+
+                    <a class="btn btn-primary " href="{% url 'myadmin_kecheng_toupload' %}">确认提交</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="container">
+                <b style="color: red">{{ msg }}</b>
+                <div style="margin-top: 30px">
+
+                    <a class="btn btn-primary " href="{% url 'myadmin_kecheng_upload' %}">返回重新提交</a>
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+    <div class="container">
+        <h4 class="page-header ">上传课程信息</h4>
+    </div>
+    <div class="col-lg-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>课程ID</th>
+                <th>课程名</th>
+
+                <th>学号</th>
+                <th>教师ID</th>
+
+                <th>是否可以添加</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in excel_data %}
+                <tr>
+
+                    {% for cell in row %}
+                        {{ row.extend }}
+                        {% if cell == 'ok' %}
+                            <td><span style="color: darkgreen" class="glyphicon glyphicon-ok"></span></td>
+                        {% elif cell == 'no' %}
+                            <td><span style="color: red" class="glyphicon glyphicon-remove"></span></td>
+                        {% else %}
+                            <td>{{ cell }}</td>
+                        {% endif %}
+
+
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+{% endblock %}
+

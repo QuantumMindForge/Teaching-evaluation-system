@@ -1,0 +1,61 @@
+{% extends 'myadmin/base.html' %}
+{% block myadmin_collapse %} in {% endblock %}
+{% block myadmin_pingjia %} active {% endblock %}
+
+
+{% block myadmin_base %}
+    <h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">查看教师评价成绩</h2>
+    <div style="opacity: 0.8; padding: 0px; background-color: white; margin: 1px 1px 30px 1px">
+        <div class="bg-primary" style="padding: 10px; border-radius: 10px; margin-bottom: 10px">
+            <p>教工号：{{ teacher.teacher_id }}</p>
+            <p>教师名字：{{ teacher.name }}</p>
+            <p>教师手机号：{{ teacher.phone }}</p>
+            <p>教师邮箱：{{ teacher.email }}</p>
+            <p>教师图片：{{ teacher.photo.url }}</p>
+            <p>学生数量：{{ stu_sum }}</p>
+            <p>完成评价学生数量：{{ pingjia_sum }}</p>
+        </div>
+
+        <label for="" style="color: red">学生评价率：</label>
+        <div class="progress" style="margin-bottom: 30px">
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ PJL }}"
+                 aria-valuemin="0" aria-valuemax="100" style="min-width: {{ PJL }}%;">
+                {{ PJL }}%
+            </div>
+        </div>
+
+        {# 显示评价数据表 #}
+        {% for kecheng in kechengs %}
+            <h4>{{ kecheng.name }}</h4>
+            {% for i in kecheng.tiku %}
+                <label for="">{{ forloop.counter }}. {{ i.timu }}</label>
+                <div class="progress" style="margin-bottom: 30px">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                         style="min-width: {{ i.avg_score }}%;">
+                        {{ i.avg_score }}%
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {# 综合评价 #}
+        <label for="" style="color: red">综合评价：</label>
+        <div class="progress" style="margin-bottom: 30px">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ s_avg }}"
+                 aria-valuemin="0" aria-valuemax="10" style="min-width: {{ s_avg }}%;">
+                {{ s_avg }}
+            </div>
+        </div>
+
+        {% load static %}
+
+        <h2 class="text-center my-4" style="font-size: 2rem; font-weight: bold; color: #337ab7;">学生留言/评价/建议</h2>
+        <ul class="list-group">
+            {% for feedback in pingjiabaio %}
+                {% if feedback.s_liuyan and forloop.counter|divisibleby:10 == 1 %}
+                    <li class="list-group-item list-group-item-success">{{ feedback.s_liuyan }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
