@@ -1,0 +1,59 @@
+{% extends 'students/base.html' %}
+{% block YiPingJia %}
+active
+{% endblock %}
+{% block index %}
+{% load static %}
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column" style="margin-top: 60px; align-content: center">
+            <div class="row clearfix">
+                <div class="col-md-3 column"></div>
+                <div class="col-md-6 column"
+                     style="margin: 10px 10px 50px 10px; border-radius: 2%;
+                     background-color: white; opacity: 0.9;
+                     padding: 10px; border-radius: 20px;">
+                    <div style="text-align: center; margin-bottom: 40px">
+                        <h3>课程名：{{ kecheng.kecheng }}</h3>
+                    </div>
+
+                    <div style="margin-bottom: 20px; margin-left: 25px" class="col-md-12">
+                        <img style="width: 60px; height: 60px" class="img-rounded" src="{% static 'img/user.jpg' %}" alt=""><br>
+                        <label for="">&nbsp;{{ kecheng.teacher_id__name }}</label>
+                    </div>
+
+                    <div style="margin-left: 0px; font-size: 15px" class="col-md-12">
+                        <ul>
+                            <li>课程编号：{{ kecheng.id }}</li>
+                            <li>教师名字：{{ kecheng.teacher_id__name }}</li>
+                            <li>教师电话：{{ kecheng.teacher_id__phone }}</li>
+                        </ul>
+                        <hr>
+                    </div>
+
+                    {% for data in data_list %}
+                        <div class="form-group" style="margin-top: 30px">
+                            <label for="question"><span class="badge" style="background-color: #0FB25F">{{ forloop.counter }}</span>&emsp;{{ data.question }}</label>
+                            <div class="form-group">
+                                <div class="radio" style="font-size: 12pt">
+                                    <div style="color: brown; margin-top: 15px">
+                                        <input class="form-control" type="text" value="{{ data.student_answer }}" readonly>
+                                    </div>
+                                </div>
+                                <p>得分: {{ data.score }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <hr>
+
+                    <label for="">留言</label><br>
+                    <textarea class="form-control" name="liuyan" cols="38" rows="6" disabled>{{ liuyan }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'students/base.html' %}
+{% block YiPingJia %}
+active
+{% endblock %}
+{% block index %}
+
+
+<div class="col-sm-3 col-md-3 column"></div>
+<div class="col-sm-6 col-md-6 column"
+     style="margin-top:80px;">
+    <div style="font-size: 15pt;margin: 5px;border-radius: 10px;background-color: white;padding: 10px;opacity: 0.8">
+
+
+        <ul class="nav nav-pills nav-stacked">
+            <div class="list-group">
+                {% for i in book1 %}
+                    <a style="background-color: #ebecef;margin-top: 5px;font-size: 15px" class="list-group-item"
+                       href="/students/cat_pingjia/{{ i.id }}">{{ forloop.counter }}.{{ i.kecheng }}<span
+                            class="badge"
+                            style="background-color: cadetblue;margin-top: 3px">已评价</span></a>
+                {% empty %}
+                    <div align="center">
+                        <h3 style="margin-top: 180px">没有评价记录！</h3>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </ul>
+    </div>
+
+</div>
+{% endblock %}

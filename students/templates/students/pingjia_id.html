@@ -1,0 +1,87 @@
+{% extends 'students/base.html' %}
+{% block DaiPingJia %}
+active
+{% endblock %}
+{% block index %}
+
+{% load static %}
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column" style="margin-top: 60px;align-content: center">
+            <div class="row clearfix">
+                <div class="col-md-3 column">
+                </div>
+                <div class="col-md-6 column"
+                     style="margin: 0px 10px 50px 10px;border-radius: 10px;background-color: white;opacity: 0.9;padding: 10px;">
+                    <div style="text-align: center;margin-bottom: 30px;">
+                        <br>
+                        <h3>课程名：{{ kecheng.kecheng }}</h3>
+                    </div>
+
+                        <div style="margin-bottom: 20px;margin-left: 25px" class="col-md-12">
+                            <img style="width: 60px;height: 60px" class="img-rounded"
+                                 src="{% static 'img/user.jpg' %}" alt=""><br>
+                            <label for="">&nbsp;{{ kecheng.teacher_id__name }}</label>
+
+                        </div>
+                        <div style="font-size: 15px" class="col-md-12">
+                            <li>课程编号：{{ kecheng.id }}</li>
+                            <li>课程名称：{{ kecheng.kecheng }}</li>
+                            <li>教师名字：{{ kecheng.teacher_id__name }}</li>
+
+                            <hr>
+
+                        </div>
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% for tiku in tiku_list %}
+                            <div class="form-group" style="margin-top: 30px">
+                                <label for="timu{{ tiku.id }}">
+                                    <span class="badge" style="background-color: #0FB25F">{{ forloop.counter }}</span>
+                                    {{ tiku.timu }}
+                                </label>
+                                <div class="form-group">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="{{ tiku.id }}" value="A" required>
+                                            {{ tiku.option_a }}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="{{ tiku.id }}" value="B">
+                                            {{ tiku.option_b }}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="{{ tiku.id }}" value="C">
+                                            {{ tiku.option_c }}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="{{ tiku.id }}" value="D">
+                                            {{ tiku.option_d }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <label for="liuyan">留言</label><br>
+                        <textarea class="form-control" name="liuyan" id="liuyan" cols="46" rows="6"></textarea>
+
+                        <button type="submit" class="btn btn-lg btn-primary form-control" style="margin-top: 15px;margin-bottom: 30px;font-size: 18px;height: auto">
+                            提交
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
